@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Heroes.Migrations
+namespace Heroes.Migrations.Identity
 {
     /// <inheritdoc />
-    public partial class addIdentity : Migration
+    public partial class CrearIdentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

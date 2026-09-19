@@ -12,20 +12,28 @@ builder.Services.AddDbContext<HeroesContext>(options =>
         builder.Configuration.GetConnectionString("HeroesDb")
         ?? throw new InvalidOperationException("Falta la conexión HeroesDb.")));
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("HeroesDb")
+        ?? throw new InvalidOperationException("Falta la conexión HeroesDb.")));
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
-    
+
+    options.User.RequireUniqueEmail = true;
+
     options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 3;
+    options.Password.RequiredLength = 8;
     options.Password.RequireLowercase = true;
     options.Password.RequireDigit = true;
     options.Password.RequireNonAlphanumeric = true;
-}).AddEntityFrameworkStores<HeroesContext>();
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Heroe");
+    options.Conventions.AuthorizeFolder("/SuperPoderes");
 });
 
 var app = builder.Build();
